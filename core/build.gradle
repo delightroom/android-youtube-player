@@ -12,9 +12,11 @@ android {
 
     sourceSets {
         main.res.srcDirs = [
-            'src/main/res',
-            'src/main/res-public'
+                'src/main/res',
+                'src/main/res-public'
         ]
+    }
+    buildTypes {
     }
 }
 
@@ -36,5 +38,3 @@ ext {
     PUBLISH_ARTIFACT_ID = 'core'
     PUBLISH_DESCRIPTION = 'YouTube Player library for Android, stable and customizable.'
 }
-
-apply from: "../scripts/publish-module.gradle"
