@@ -46,7 +46,7 @@
     			
                 events: {
     				onReady: function(event) { YouTubePlayerBridge.sendReady() },
-    				onStateChange: function(event) { sendPlayerStateChange(event.data) },
+    				onStateChange: function(event) { sendPlayerStateChange(event.data); hideElements(); },
     				onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
     				onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
     				onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
@@ -57,6 +57,25 @@
                 
     		});
     	}
+
+    	function hideElements() {
+    	    var doc = document.getElementById('youTubePlayerDOM').contentDocument;
+    	    if (!!!doc) return;
+            var player = doc.getElementById('player');
+            removePlayerElementsByClass(player, 'ytp-chrome-top ytp-show-cards-title')
+            removePlayerElementsByClass(player, 'ytp-gradient-top')
+            removePlayerElementsByClass(player, 'ytp-pause-overlay ytp-scroll-min')
+            removePlayerElementsByClass(player, 'ytp-ce-element')
+    	}
+
+        function removePlayerElementsByClass(player, className){
+            if (!!!player) return;
+            var elements = player.getElementsByClassName(className);
+            if (!!!elements) return;
+            while(elements.length > 0) {
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        }
 
     	function sendPlayerStateChange(playerState) {
             clearTimeout(timerId);
